@@ -175,7 +175,7 @@ export default function VideoShowcase() {
 
           <div>
             <Image
-              src="/video-editing-workstation-with-professional-monito.jpg"
+              src="/video-editing-workstation-with-professional-monito.webp"
               alt="Professional video editing workstation with multi-monitor setup - high-end video production equipment"
               width={800}
               height={600}

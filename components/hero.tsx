@@ -60,7 +60,7 @@ export default function Hero() {
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl blur-3xl" />
                 <Image
-                  src="/professional-video-editor-khalid-getachew-working-.jpg"
+                  src="/professional-video-editor-khalid-getachew-working.webp"
                   alt="Khalid Getachew - Video Editor and Creative Professional working in Ethiopia"
                   width={800}
                   height={800}

@@ -3,57 +3,14 @@
 import { useState } from "react"
 import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
+import { projects } from "@/config/portfolio"
 
 export default function Portfolio() {
   const [selectedCategory, setSelectedCategory] = useState("all")
 
-  const projects = [
-    {
-      id: 1,
-      title: "Digital Platform",
-      category: "design",
-      description: "Complete digital transformation project",
-      image: "/modern-digital-platform.png",
-    },
-    {
-      id: 2,
-      title: "Brand Identity",
-      category: "branding",
-      description: "Full brand identity and guidelines",
-      image: "/creative-brand-identity-modern.jpg",
-    },
-    {
-      id: 3,
-      title: "Mobile App",
-      category: "design",
-      description: "User-centered mobile application",
-      image: "/mobile-app-design-interface.jpg",
-    },
-    {
-      id: 4,
-      title: "Marketing Campaign",
-      category: "strategy",
-      description: "Integrated digital marketing strategy",
-      image: "/marketing-campaign-digital-strategy.jpg",
-    },
-    {
-      id: 5,
-      title: "E-Commerce Platform",
-      category: "design",
-      description: "Full-featured online marketplace",
-      image: "/ecommerce-platform-modern.jpg",
-    },
-    {
-      id: 6,
-      title: "Corporate Identity",
-      category: "branding",
-      description: "Enterprise brand development",
-      image: "/corporate-identity-professional.jpg",
-    },
-  ]
-
   const categories = [
     { id: "all", label: "All Projects" },
+    { id: "video", label: "Video" },
     { id: "design", label: "Design" },
     { id: "branding", label: "Branding" },
     { id: "strategy", label: "Strategy" },
@@ -89,24 +46,56 @@ export default function Portfolio() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filtered.map((project) => (
-            <div key={project.id} className="group cursor-pointer">
+            <a
+              key={project.id}
+              href={project.youtubeUrl || "#"}
+              target={project.youtubeUrl ? "_blank" : undefined}
+              rel={project.youtubeUrl ? "noopener noreferrer" : undefined}
+              className="group cursor-pointer block"
+            >
               <div className="relative overflow-hidden rounded-xl mb-4 aspect-video bg-card border border-border/50">
-                <Image
-                  src={project.image || "/placeholder.svg"}
-                  alt={`${project.title} - ${project.description} by Khalid Getachew`}
-                  width={800}
-                  height={450}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
-                  <ArrowUpRight className="text-white" size={24} />
-                </div>
+                {project.youtubeId ? (
+                  <>
+                    <img
+                      src={`https://img.youtube.com/vi/${project.youtubeId}/maxresdefault.jpg`}
+                      alt={`${project.title} - ${project.description} by Khalid Getachew`}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center group-hover:bg-primary transition-colors">
+                        <svg
+                          className="w-8 h-8 text-primary-foreground ml-1"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </div>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
+                      <ArrowUpRight className="text-white" size={24} />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <Image
+                      src={("image" in project && project.image ? project.image : "/placeholder.svg") as string}
+                      alt={`${project.title} - ${project.description} by Khalid Getachew`}
+                      width={800}
+                      height={450}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
+                      <ArrowUpRight className="text-white" size={24} />
+                    </div>
+                  </>
+                )}
               </div>
               <h3 className="text-lg font-serif font-semibold group-hover:text-primary transition-colors">
                 {project.title}
               </h3>
               <p className="text-sm text-muted-foreground">{project.description}</p>
-            </div>
+            </a>
           ))}
         </div>
       </div>
